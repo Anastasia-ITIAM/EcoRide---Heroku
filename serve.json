@@ -1,0 +1,20 @@
+{
+  "public": ".",
+  "rewrites": [
+    {
+      "source": "/templates/**",
+      "destination": "/templates/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/templates/**",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/html"
+        }
+      ]
+    }
+  ]
+}
