@@ -46,7 +46,7 @@ export function initProfil() {
             }
 
             // Étape 2 : toujours récupérer les données serveur
-            const res = await fetch(`getApiUrl(API_CONFIG.ENDPOINTS.AUTH.REGISTER)/${userId}`);
+            const res = await fetch(`${getApiUrl(API_CONFIG.ENDPOINTS.AUTH.REGISTER)}/${userId}`);
             const result = await res.json();
 
             if (!res.ok || !result.success) {
@@ -91,7 +91,7 @@ export function initProfil() {
         }
 
         try {
-            const res = await fetch(`getApiUrl(API_CONFIG.ENDPOINTS.AUTH.REGISTER)/${userId}`, {
+            const res = await fetch(`${getApiUrl(API_CONFIG.ENDPOINTS.AUTH.REGISTER)}/${userId}`, {
                 method: "POST",
                 body: formData
             });
