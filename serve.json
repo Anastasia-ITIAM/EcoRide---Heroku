@@ -1,14 +1,8 @@
 {
   "public": ".",
-  "rewrites": [
-    {
-      "source": "/templates/**",
-      "destination": "/templates/$1"
-    }
-  ],
   "headers": [
     {
-      "source": "/templates/**",
+      "source": "**/*.html",
       "headers": [
         {
           "key": "Content-Type",
