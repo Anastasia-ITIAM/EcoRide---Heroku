@@ -26,9 +26,9 @@ export async function initSearchTrip() {
             if (depart) queryParams.depart = depart;
             if (arrivee) queryParams.arrivee = arrivee;
             if (datetime) queryParams.datetime = datetime;
-            url = `getApiUrl(API_CONFIG.ENDPOINTS.TRIP.SEARCH)?${new URLSearchParams(queryParams).toString()}`;
+            url = `${getApiUrl(API_CONFIG.ENDPOINTS.TRIP.SEARCH)}?${new URLSearchParams(queryParams).toString()}`;
         } else {
-            url = 'getApiUrl(API_CONFIG.ENDPOINTS.TRIP.ALL)';
+            url = getApiUrl(API_CONFIG.ENDPOINTS.TRIP.ALL);
         }
 
         const resp = await fetch(url);

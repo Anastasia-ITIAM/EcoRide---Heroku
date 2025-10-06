@@ -36,7 +36,7 @@ export function initSignUp() {
         try {
             console.log("📤 Data envoyée :", data);
 
-            const response = await fetch('getApiUrl(API_CONFIG.ENDPOINTS.AUTH.REGISTER)', {
+            const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.AUTH.REGISTER), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)

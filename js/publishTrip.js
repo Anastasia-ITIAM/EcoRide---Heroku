@@ -6,7 +6,7 @@ async function populateUserCars() {
     if (!select) return;
 
     try {
-        const resp = await authFetch('getApiUrl(API_CONFIG.ENDPOINTS.CAR.LIST)', { method: 'GET' });
+        const resp = await authFetch(getApiUrl(API_CONFIG.ENDPOINTS.CAR.LIST), { method: 'GET' });
         const text = await resp.text();
         let data;
 
@@ -74,7 +74,7 @@ function setupPublishTripForm() {
         };
 
         try {
-            const resp = await authFetch('getApiUrl(API_CONFIG.ENDPOINTS.TRIP.ADD)', {
+            const resp = await authFetch(getApiUrl(API_CONFIG.ENDPOINTS.TRIP.ADD), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)

@@ -14,7 +14,7 @@ const toYMD = value => {
 /* API */
 export const fetchMyCars = async () => {
     try {
-        const resp = await authFetch('getApiUrl(API_CONFIG.ENDPOINTS.CAR.LIST)', { method: 'GET' });
+        const resp = await authFetch(getApiUrl(API_CONFIG.ENDPOINTS.CAR.LIST), { method: 'GET' });
         const data = await resp.json();
         return resp.ok && data.success ? (Array.isArray(data.cars) ? data.cars : [data.cars]) : [];
     } catch (err) { console.error(err); return []; }
@@ -161,7 +161,7 @@ export function initCar() {
         const data = Object.fromEntries(formData.entries());
         data.available_seats = parseInt(data.available_seats,10)||0;
         try {
-            const resp = await authFetch('getApiUrl(API_CONFIG.ENDPOINTS.CAR.ADD)', { method:'POST', body: JSON.stringify(data) });
+            const resp = await authFetch(getApiUrl(API_CONFIG.ENDPOINTS.CAR.ADD), { method:'POST', body: JSON.stringify(data) });
             const result = await resp.json();
             if(resp.ok && result.success){
                 const currentUserData = JSON.parse(sessionStorage.getItem(storageKey))||{};
