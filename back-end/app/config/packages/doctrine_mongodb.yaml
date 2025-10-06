@@ -1,0 +1,20 @@
+# config/packages/doctrine_mongodb.yaml
+doctrine_mongodb:
+    connections:
+        default:
+            # Connexion à MongoDB via la variable d'environnement
+            server: '%env(resolve:MONGODB_URL)%'
+            options: {}
+
+    default_database: ecoride_mongo
+
+    document_managers:
+        default:
+            auto_mapping: false
+
+            mappings:
+                App:
+                    type: attribute         
+                    dir: '%kernel.project_dir%/src/Document'
+                    prefix: 'App\Document'
+                    is_bundle: false
