@@ -4,7 +4,7 @@
   "description": "EcoRide Frontend Application",
   "main": "index.html",
   "scripts": {
-    "start": "npx serve -s . -l 3000"
+    "start": "npx serve -s . -l $PORT"
   },
   "dependencies": {
     "serve": "^14.2.1"
