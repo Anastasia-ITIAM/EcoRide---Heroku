@@ -22,7 +22,7 @@ export async function initTripDetails() {
     }
 
     try {
-        const res = await authFetch(`http://localhost:8000/api/trip/${tripId}`, {}, true);
+        const res = await authFetch(`${getApiUrl(API_CONFIG.ENDPOINTS.TRIP.DETAILS)}/${tripId}`, {}, true);
         if (!res.ok) throw new Error(`Erreur serveur : ${res.status}`);
 
         const result = await res.json();
@@ -105,7 +105,7 @@ export async function initTripDetails() {
 
                 try {
                     const res = await authFetch(
-                        `http://localhost:8000/api/trip/reservation/${trip.id}`,
+                        `${getApiUrl(API_CONFIG.ENDPOINTS.RESERVATION.RESERVE)}/${trip.id}`,
                         { method: 'POST' },
                         true
                     );
@@ -140,7 +140,7 @@ export async function initTripDetails() {
                 if (!confirm('Voulez-vous vraiment annuler votre réservation ?')) return;
                 try {
                     const res = await authFetch(
-                        `http://localhost:8000/api/trip/reservation/cancel/${trip.id}`,
+                        `${getApiUrl(API_CONFIG.ENDPOINTS.RESERVATION.CANCEL)}/${trip.id}`,
                         { method: 'POST' },
                         true
                     );

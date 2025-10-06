@@ -66,7 +66,7 @@ export function initProfil() {
             if (profileImage && userData.profilePhotoUrl) {
                 profileImage.src = userData.profilePhotoUrl.startsWith("http")
                     ? userData.profilePhotoUrl
-                    : `http://localhost:8000${userData.profilePhotoUrl}`;
+                    : `${API_CONFIG.BASE_URL}${userData.profilePhotoUrl}`;
             }
 
             sessionStorage.setItem(storageKey, JSON.stringify(userData));
@@ -118,7 +118,7 @@ export function initProfil() {
             if (profileImage && result.user.profilePhotoUrl) {
                 profileImage.src = result.user.profilePhotoUrl.startsWith("http")
                     ? result.user.profilePhotoUrl
-                    : `http://localhost:8000${result.user.profilePhotoUrl}`;
+                    : `${API_CONFIG.BASE_URL}${result.user.profilePhotoUrl}`;
                 updatedData.profilePhotoUrl = result.user.profilePhotoUrl;
             }
 
