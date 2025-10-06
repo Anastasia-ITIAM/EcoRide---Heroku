@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     
     try {
         // Injecter le header
-        const headerResponse = await fetch("/templates/header.html");
+        const headerResponse = await fetch("/templates/header");
         if (headerResponse.ok) {
             const headerData = await headerResponse.text();
             const headerPlaceholder = document.getElementById("header-placeholder");
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         }
 
         // Injecter le footer
-        const footerResponse = await fetch("/templates/footer.html");
+        const footerResponse = await fetch("/templates/footer");
         if (footerResponse.ok) {
             const footerData = await footerResponse.text();
             const footerPlaceholder = document.getElementById("footer-placeholder");
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         }
 
         // Injecter les modals
-        const modalsResponse = await fetch("/templates/modals.html");
+        const modalsResponse = await fetch("/templates/modals");
         if (modalsResponse.ok) {
             const modalsData = await modalsResponse.text();
             document.body.insertAdjacentHTML("beforeend", modalsData);
