@@ -174,7 +174,7 @@ export async function initTripDetails() {
                     if (!confirm('Voulez-vous vraiment supprimer ce trajet ?')) return;
                     try {
                         const delResp = await authFetch(
-                            `getApiUrl(API_CONFIG.ENDPOINTS.TRIP.DELETE + "/")${trip.id}`,
+                            `${getApiUrl(API_CONFIG.ENDPOINTS.TRIP.DELETE)}/${trip.id}`,
                             { method: 'DELETE' },
                             true
                         );

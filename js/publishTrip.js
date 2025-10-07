@@ -121,7 +121,7 @@ function setupDeleteTripButton(tripId) {
         if (!confirm('Voulez-vous vraiment supprimer ce trajet ?')) return;
 
         try {
-            const delResp = await authFetch(`getApiUrl(API_CONFIG.ENDPOINTS.TRIP.DELETE + "/")${tripId}`, { method: 'DELETE' });
+            const delResp = await authFetch(`${getApiUrl(API_CONFIG.ENDPOINTS.TRIP.DELETE)}/${tripId}`, { method: 'DELETE' });
             const text = await delResp.text();
             let delResult;
 

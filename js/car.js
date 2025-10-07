@@ -123,7 +123,7 @@ export async function renderCars(cars) {
         const delBtn = createButton('Supprimer', async () => {
             if (!confirm('Voulez-vous vraiment supprimer ce véhicule ?')) return;
             try {
-                const resp = await authFetch(`getApiUrl(API_CONFIG.ENDPOINTS.CAR.DELETE + "/")${car.id}`, { method:'DELETE' });
+                const resp = await authFetch(`${getApiUrl(API_CONFIG.ENDPOINTS.CAR.DELETE)}/${car.id}`, { method:'DELETE' });
                 const result = await resp.json();
                 if(resp.ok && result.success){
                     renderCars(await fetchMyCars());
