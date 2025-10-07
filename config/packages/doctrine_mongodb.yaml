@@ -4,7 +4,13 @@ doctrine_mongodb:
         default:
             # Connexion à MongoDB via la variable d'environnement
             server: '%env(resolve:MONGODB_URL)%'
-            options: {}
+            options:
+                ssl: true
+                sslAllowInvalidCertificates: false
+                sslAllowInvalidHostnames: false
+                serverSelectionTimeoutMS: 10000
+                connectTimeoutMS: 20000
+                socketTimeoutMS: 30000
 
     default_database: ecoride_mongo
 

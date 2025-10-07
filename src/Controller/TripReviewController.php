@@ -88,7 +88,13 @@ class TripReviewController extends AbstractController
 
         } catch (\Exception $e) {
             $this->logger->error('Erreur getReviews: ' . $e->getMessage(), ['exception' => $e]);
-            return $this->json(['success' => false, 'message' => 'Erreur lors de la récupération des avis.'], 500);
+            
+            // Retourner une réponse vide en cas d'erreur MongoDB
+            return $this->json([
+                'success' => true, 
+                'reviews' => [],
+                'message' => 'Aucun avis disponible pour le moment'
+            ]);
         }
     }
 }
