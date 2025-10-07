@@ -31,14 +31,14 @@ class TripReviewController extends AbstractController
     #[Route('/{tripId}/reviews', name: 'add', methods: ['POST'])]
     public function add(int $tripId, Request $request): JsonResponse
     {
-        // MongoDB temporairement désactivé
-        return $this->json([
-            'success' => false, 
-            'message' => 'Fonctionnalité des avis temporairement désactivée'
-        ], 503);
-        
-        /* Code MongoDB commenté pour réactivation future
         try {
+            if (!$this->dm) {
+                return $this->json([
+                    'success' => false, 
+                    'message' => 'Service MongoDB non disponible'
+                ], 503);
+            }
+
             $data = json_decode($request->getContent(), true);
 
             if (!$data || empty($data['userId']) || empty($data['comment']) || !isset($data['rating'])) {
@@ -68,22 +68,21 @@ class TripReviewController extends AbstractController
             $this->logger->error('Erreur add review: ' . $e->getMessage(), ['exception' => $e]);
             return $this->json(['success' => false, 'message' => 'Erreur lors de l'ajout de l'avis.'], 500);
         }
-        */
     }
 
     // --- Lister les reviews ---
     #[Route('/{tripId}/reviews', name: 'list', methods: ['GET'])]
     public function getReviews(int $tripId): JsonResponse
     {
-        // MongoDB temporairement désactivé - retourne toujours un tableau vide
-        return $this->json([
-            'success' => true, 
-            'reviews' => [],
-            'message' => 'Fonctionnalité des avis temporairement désactivée'
-        ]);
-        
-        /* Code MongoDB commenté pour réactivation future
         try {
+            if (!$this->dm) {
+                return $this->json([
+                    'success' => true, 
+                    'reviews' => [],
+                    'message' => 'Service MongoDB non disponible'
+                ]);
+            }
+
             $reviews = $this->dm->getRepository(TripReview::class)
                                 ->findBy(['tripId' => (string) $tripId]) ?? [];
 
@@ -111,6 +110,5 @@ class TripReviewController extends AbstractController
                 'message' => 'Aucun avis disponible pour le moment'
             ]);
         }
-        */
     }
 }
