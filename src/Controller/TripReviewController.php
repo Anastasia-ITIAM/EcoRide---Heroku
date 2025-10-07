@@ -66,7 +66,7 @@ class TripReviewController extends AbstractController
 
         } catch (\Exception $e) {
             $this->logger->error('Erreur add review: ' . $e->getMessage(), ['exception' => $e]);
-            return $this->json(['success' => false, 'message' => 'Erreur lors de l'ajout de l'avis.'], 500);
+            return $this->json(['success' => false, 'message' => 'Erreur lors de l\'ajout de l\'avis.'], 500);
         }
     }
 
