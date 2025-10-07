@@ -2,11 +2,10 @@
 
 namespace App\Controller;
 
-use App\Document\TripReview;
+use App\Entity\TripReview;
 use App\Entity\Trip;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,13 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api/trip', name: 'trip_review_')]
 class TripReviewController extends AbstractController
 {
-    private ?DocumentManager $dm;
     private EntityManagerInterface $em;
     private LoggerInterface $logger;
 
-    public function __construct(?DocumentManager $dm, EntityManagerInterface $em, LoggerInterface $logger)
+    public function __construct(EntityManagerInterface $em, LoggerInterface $logger)
     {
-        $this->dm = $dm;
         $this->em = $em;
         $this->logger = $logger;
     }
@@ -32,13 +29,6 @@ class TripReviewController extends AbstractController
     public function add(int $tripId, Request $request): JsonResponse
     {
         try {
-            if (!$this->dm) {
-                return $this->json([
-                    'success' => false, 
-                    'message' => 'Service MongoDB non disponible'
-                ], 503);
-            }
-
             $data = json_decode($request->getContent(), true);
 
             if (!$data || empty($data['userId']) || empty($data['comment']) || !isset($data['rating'])) {
@@ -46,21 +36,25 @@ class TripReviewController extends AbstractController
             }
 
             $trip = $this->em->getRepository(Trip::class)->find($tripId);
-            if (!$trip) return $this->json(['success' => false, 'message' => 'Trajet introuvable.'], 404);
+            if (!$trip) {
+                return $this->json(['success' => false, 'message' => 'Trajet introuvable.'], 404);
+            }
 
             $user = $this->em->getRepository(User::class)->find($data['userId']);
-            if (!$user) return $this->json(['success' => false, 'message' => 'Utilisateur introuvable.'], 404);
+            if (!$user) {
+                return $this->json(['success' => false, 'message' => 'Utilisateur introuvable.'], 404);
+            }
 
             $review = new TripReview();
-            $review->setTripId((string) $trip->getId())
-                   ->setUserId((string) $user->getId())
+            $review->setTripId($trip->getId())
+                   ->setUserId($user->getId())
                    ->setUserPseudo($user->getPseudo() ?? '')
                    ->setComment($data['comment'])
                    ->setRating((int) $data['rating'])
                    ->setCreatedAt(new \DateTime());
 
-            $this->dm->persist($review);
-            $this->dm->flush();
+            $this->em->persist($review);
+            $this->em->flush();
 
             return $this->json(['success' => true, 'review_id' => $review->getId()], 201);
 
@@ -75,16 +69,8 @@ class TripReviewController extends AbstractController
     public function getReviews(int $tripId): JsonResponse
     {
         try {
-            if (!$this->dm) {
-                return $this->json([
-                    'success' => true, 
-                    'reviews' => [],
-                    'message' => 'Service MongoDB non disponible'
-                ]);
-            }
-
-            $reviews = $this->dm->getRepository(TripReview::class)
-                                ->findBy(['tripId' => (string) $tripId]) ?? [];
+            $reviews = $this->em->getRepository(TripReview::class)
+                                ->findBy(['tripId' => $tripId]) ?? [];
 
             $data = [];
             foreach ($reviews as $r) {
