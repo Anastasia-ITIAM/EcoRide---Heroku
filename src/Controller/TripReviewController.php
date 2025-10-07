@@ -16,11 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api/trip', name: 'trip_review_')]
 class TripReviewController extends AbstractController
 {
-    private DocumentManager $dm;
+    private ?DocumentManager $dm;
     private EntityManagerInterface $em;
     private LoggerInterface $logger;
 
-    public function __construct(DocumentManager $dm, EntityManagerInterface $em, LoggerInterface $logger)
+    public function __construct(?DocumentManager $dm, EntityManagerInterface $em, LoggerInterface $logger)
     {
         $this->dm = $dm;
         $this->em = $em;
@@ -31,6 +31,13 @@ class TripReviewController extends AbstractController
     #[Route('/{tripId}/reviews', name: 'add', methods: ['POST'])]
     public function add(int $tripId, Request $request): JsonResponse
     {
+        // MongoDB temporairement désactivé
+        return $this->json([
+            'success' => false, 
+            'message' => 'Fonctionnalité des avis temporairement désactivée'
+        ], 503);
+        
+        /* Code MongoDB commenté pour réactivation future
         try {
             $data = json_decode($request->getContent(), true);
 
@@ -59,8 +66,9 @@ class TripReviewController extends AbstractController
 
         } catch (\Exception $e) {
             $this->logger->error('Erreur add review: ' . $e->getMessage(), ['exception' => $e]);
-            return $this->json(['success' => false, 'message' => 'Erreur lors de l’ajout de l’avis.'], 500);
+            return $this->json(['success' => false, 'message' => 'Erreur lors de l'ajout de l'avis.'], 500);
         }
+        */
     }
 
     // --- Lister les reviews ---
