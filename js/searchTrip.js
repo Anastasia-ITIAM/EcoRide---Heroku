@@ -75,10 +75,10 @@ export async function initSearchTrip() {
                 <div class="card h-100" style="background-color: #e8f5e9;">
                     <div class="card-body">
                         <div style="display: flex; align-items: center; gap: 15px; margin: 15px 0;">
-                            <img src="API_CONFIG.BASE_URL + photoUrl" 
+                            <img src="${API_CONFIG.BASE_URL}${photoUrl}" 
                                  alt="Conducteur" 
                                  style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;"
-                                 onerror="this.onerror=null; this.src='/uploads/profiles/profile_default.png';">
+                                 onerror="this.onerror=null; this.src='${API_CONFIG.BASE_URL}/uploads/profiles/profile_default.png';">
                             <div>
                                 <strong>${trip.departure_address || 'N/A'}</strong> → <strong>${trip.arrival_address || 'N/A'}</strong><br>
                                 <u>Conducteur·rice</u> : ${trip.driver_name || 'Inconnu'}<br>
