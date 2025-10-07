@@ -5,6 +5,7 @@ doctrine_mongodb:
             # Connexion à MongoDB via la variable d'environnement
             server: '%env(resolve:MONGODB_URL)%'
             options:
+                ssl: false
                 connectTimeoutMS: 30000
                 socketTimeoutMS: 60000
 
