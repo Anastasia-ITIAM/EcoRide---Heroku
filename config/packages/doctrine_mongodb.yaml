@@ -7,7 +7,6 @@ doctrine_mongodb:
             options:
                 connectTimeoutMS: 30000
                 socketTimeoutMS: 60000
-                serverSelectionTimeoutMS: 30000
 
     default_database: ecoride_mongo
 
