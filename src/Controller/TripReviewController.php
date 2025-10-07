@@ -67,6 +67,14 @@ class TripReviewController extends AbstractController
     #[Route('/{tripId}/reviews', name: 'list', methods: ['GET'])]
     public function getReviews(int $tripId): JsonResponse
     {
+        // MongoDB temporairement désactivé - retourne toujours un tableau vide
+        return $this->json([
+            'success' => true, 
+            'reviews' => [],
+            'message' => 'Fonctionnalité des avis temporairement désactivée'
+        ]);
+        
+        /* Code MongoDB commenté pour réactivation future
         try {
             $reviews = $this->dm->getRepository(TripReview::class)
                                 ->findBy(['tripId' => (string) $tripId]) ?? [];
@@ -89,12 +97,12 @@ class TripReviewController extends AbstractController
         } catch (\Exception $e) {
             $this->logger->error('Erreur getReviews: ' . $e->getMessage(), ['exception' => $e]);
             
-            // Retourner une réponse vide en cas d'erreur MongoDB
             return $this->json([
                 'success' => true, 
                 'reviews' => [],
                 'message' => 'Aucun avis disponible pour le moment'
             ]);
         }
+        */
     }
 }
