@@ -24,6 +24,6 @@ services:
             - '../src/Document/*'
 
     # Explicitly tag commands if needed (optional)
-    App\Command\:
-        resource: '../src/Command'
-        tags: ['console.command']
+    # App\Command\:
+    #     resource: '../src/Command'
+    #     tags: ['console.command']
