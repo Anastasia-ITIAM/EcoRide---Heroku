@@ -135,7 +135,7 @@ class TripController extends AbstractController
     {
         $driver = $trip->getDriver();
         $driverName = $driver ? $driver->getPseudo() : 'Inconnu';
-        $driverPhoto = '/uploads/profiles/profile_default.svg';
+        $driverPhoto = '/uploads/profiles/profile_default.png';
         if ($driver && $driver->getProfilePhotoUrl()) {
             $filename = basename($driver->getProfilePhotoUrl());
             $driverPhoto = '/uploads/profiles/' . $filename;
