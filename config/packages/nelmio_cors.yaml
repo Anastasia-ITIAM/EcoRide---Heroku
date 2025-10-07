@@ -1,0 +1,14 @@
+nelmio_cors:
+    defaults:
+        allow_credentials: true
+        allow_origin: ['http://localhost:8080', 'https://ecoecoride-frontend-ada00e5c2094.herokuapp.com']
+        allow_headers: ['Content-Type', 'Authorization', 'X-Requested-With']
+        allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+        expose_headers: ['Link']
+        max_age: 3600
+    paths:
+        '^/api/':
+            allow_origin: ['http://localhost:8080', 'https://ecoecoride-frontend-ada00e5c2094.herokuapp.com']
+            allow_headers: ['Content-Type', 'Authorization', 'X-Requested-With']
+            allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+            max_age: 3600

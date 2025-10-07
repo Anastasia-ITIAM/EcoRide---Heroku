@@ -1,0 +1,44 @@
+{
+  "name": "EcoRide",
+  "description": "EcoRide - Carpooling Application",
+  "repository": "https://github.com/yourusername/EcoRide",
+  "logo": "https://raw.githubusercontent.com/yourusername/EcoRide/main/front-end/assets/logo.svg",
+  "keywords": ["php", "symfony", "carpooling", "ecoride"],
+  "addons": [
+    {
+      "plan": "heroku-postgresql:mini"
+    },
+    {
+      "plan": "mongolab:sandbox"
+    }
+  ],
+  "env": {
+    "APP_ENV": {
+      "description": "Application environment",
+      "value": "prod"
+    },
+    "APP_SECRET": {
+      "description": "Application secret key",
+      "generator": "secret"
+    },
+    "APP_TRUSTED_HOSTS": {
+      "description": "Trusted hosts",
+      "value": "*.herokuapp.com"
+    },
+    "JWT_PASSPHRASE": {
+      "description": "JWT passphrase",
+      "generator": "secret"
+    },
+    "CORS_ALLOW_ORIGIN": {
+      "description": "CORS allowed origins",
+      "value": "https://your-app-name.herokuapp.com"
+    },
+    "DEFAULT_URI": {
+      "description": "Default URI",
+      "value": "https://your-app-name.herokuapp.com"
+    }
+  },
+  "scripts": {
+    "postdeploy": "php bin/console doctrine:migrations:migrate --no-interaction"
+  }
+}
